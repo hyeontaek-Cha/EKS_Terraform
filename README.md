@@ -1,6 +1,10 @@
 # EKS_Terraform
+
 Terraform EKS 클러스터 구축
-Tree
+
+## Tree
+
+```plaintext
 │   .terraform.lock.hcl
 │   main.tf
 │   terraform.log

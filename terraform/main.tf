@@ -7,7 +7,7 @@ provider "aws" {
 data "aws_caller_identity" "current" {}
 
 data "aws_iam_user" "iam_user" {
-  user_name = "tf-cht"
+  user_name = "tf-test"
 }
 
 # VPC 모듈
@@ -96,7 +96,7 @@ module "eks" {
         }
       }
     },
-    tf_cht = {
+    tf-test = {
       kubernetes_groups = []
       principal_arn     = data.aws_iam_user.iam_user.arn
       policy_associations = {

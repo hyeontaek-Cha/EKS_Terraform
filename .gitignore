@@ -1,4 +1,4 @@
-# **/.terraform/*
+**/.terraform/*
 
 # Ignore all exe and csv files
 *.exe
@@ -16,7 +16,7 @@
 # Ignore folder
 .infracost/
 .terraform/
-terraform/homedir/tmp/
+terraform/tmp
 
 # Unignore tf and sh files
 !*.tf

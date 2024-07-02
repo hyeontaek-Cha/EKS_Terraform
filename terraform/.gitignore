@@ -1,4 +1,4 @@
-**/.terraform/*
+# **/.terraform/*
 
 # Ignore all exe and csv files
 *.exe

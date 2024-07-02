@@ -135,21 +135,3 @@ variable "access_entries" {
     }))
   }))
 }
-
-
-
-
-
-# variable "access_entries" {
-#   description = "A map of access entries to create"
-#   type = map(object({
-#     kubernetes_groups = list(string)
-#     principal_arn     = string
-#   }))
-#   default = {
-#     example = {
-#       kubernetes_groups = ["system:masters"]
-#       principal_arn     = ""  # 빈 문자열로 설정
-#     }
-#   }
-# }

@@ -1,19 +1,23 @@
+# AWS Provider 설정
 provider "aws" {
   region = var.region
 }
 
+# AWS Caller Identity 및 IAM 사용자 데이터
 data "aws_caller_identity" "current" {}
 
 data "aws_iam_user" "iam_user" {
   user_name = "tf-cht"
 }
 
+# VPC 모듈
 module "vpc" {
   source          = "./module/vpc"
   public_subnets  = var.public_subnets
   private_subnets = var.private_subnets
 }
 
+# 보안 그룹 모듈
 module "security_group" {
   source            = "./module/security_group"
   vpc_id            = module.vpc.vpc_id
@@ -21,6 +25,7 @@ module "security_group" {
   eks_worker_sg_id  = module.security_group.eks_worker_sg_id
 }
 
+# Bastion Host 모듈
 module "bastion_host" {
   source                    = "./module/bastion_host"
   vpc_id                    = module.vpc.vpc_id
@@ -34,10 +39,12 @@ module "bastion_host" {
   bastion_eip_cidr          = format("%s/32", module.vpc.bastion_eip_public_ip)
 }
 
+# IAM 모듈
 module "iam" {
   source = "./module/iam"
 }
 
+# EKS 클러스터 모듈
 module "eks" {
   source = "./module/eks"
 
@@ -75,9 +82,7 @@ module "eks" {
   eks_registry_policy_attachment_id    = module.iam.eks_registry_policy_attachment_id
 
   # 클러스터 접근 설정
-  # enable_cluster_creator_admin_permissions = false
-
-access_entries = {
+  access_entries = {
     root = {
       kubernetes_groups = []
       principal_arn     = format("arn:aws:iam::%s:root", data.aws_caller_identity.current.account_id)

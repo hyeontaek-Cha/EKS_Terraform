@@ -9,14 +9,13 @@
 *.tfvars
 *.tfstate
 *.tfstate.backup
-*.tfstate.lock.info
 *.json
 *.log
 
 # Ignore folder
 .infracost/
 .terraform/
-terraform/tmp
+terraform/tmp/
 
 # Unignore tf and sh files
 !*.tf

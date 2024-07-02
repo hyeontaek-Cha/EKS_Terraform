@@ -16,7 +16,7 @@
 # Ignore folder
 .infracost/
 .terraform/
-homedir/tmp/
+terraform/homedir/tmp/
 
 # Unignore tf and sh files
 !*.tf

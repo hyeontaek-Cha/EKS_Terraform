@@ -31,7 +31,6 @@ echo "$(cat kubectl.sha256)  kubectl" | sha256sum --check
 chmod +x ./kubectl
 sudo mv ./kubectl /usr/local/bin
 
-
 # 시스템 전체에 경로 추가 및 alias 설정
 echo 'export PATH=$PATH:/usr/local/bin' | sudo tee /etc/profile.d/awscli2.sh
 
@@ -66,14 +65,14 @@ sudo sed -i '/#\?Defaults\s\+secure_path\s*=/c\Defaults    secure_path="/usr/loc
 # 환경 변수 수정, 적용
 source /etc/profile
 
-# AWS CLI v2 및 kubectl 설치 확인 (ec2-user)
+# AWS CLI v2, kubectl, Helm 설치 확인 (ec2-user)
 echo "AWS CLI version (`whoami`):"
 aws --version
 
 echo "kubectl version (`whoami`):"
 kubectl version --client --short
 
-# AWS CLI v2 및 kubectl 설치 확인 (root)
+# AWS CLI v2, kubectl, Helm 설치 확인 (root)
 sudo su - <<EOF
 
 echo "AWS CLI version (\`whoami\`):"
@@ -86,4 +85,4 @@ echo "Helm version (\`whoami\`):"
 helm version --short
 EOF
 
-echo "AWS CLI v2 and kubectl installation and setup completed."
+echo "AWS CLI v2, kubectl, helm installation and setup completed."

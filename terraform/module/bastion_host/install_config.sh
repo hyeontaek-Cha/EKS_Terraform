@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# awscli2, kubectl, helm설치
+
 # 기존 AWS CLI1 버전 제거
 sudo yum remove awscli -y
 
@@ -29,8 +31,15 @@ echo "$(cat kubectl.sha256)  kubectl" | sha256sum --check
 chmod +x ./kubectl
 sudo mv ./kubectl /usr/local/bin
 
+
 # 시스템 전체에 경로 추가 및 alias 설정
 echo 'export PATH=$PATH:/usr/local/bin' | sudo tee /etc/profile.d/awscli2.sh
+
+# Helm 3 설치
+echo "Downloading and installing Helm 3..."
+curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+chmod 700 get_helm.sh
+./get_helm.sh
 
 # aws cli 자동 완성 활성화
 echo complete -C '/usr/local/bin/aws_completer' aws | sudo tee -a /etc/profile.d/awscli2.sh
@@ -42,6 +51,14 @@ echo "Enable kubectl autocomplete"
 
 # kubectl 자동완성을 alias 'k'에도 적용
 echo 'complete -o default -F __start_kubectl k' | sudo tee -a /etc/profile.d/awscli2.sh
+
+# Helm 자동 완성 활성화
+helm completion bash | sudo tee /etc/bash_completion.d/helm > /dev/null
+echo 'alias h=helm' | sudo tee -a /etc/profile.d/awscli2.sh
+echo "Enable helm autocomplete"
+
+# helm 자동완성을 alias 'h'에도 적용
+echo 'complete -o default -F __start_helm h' | sudo tee -a /etc/profile.d/awscli2.sh
 
 # /etc/sudoers 파일에 secure_path 추가
 sudo sed -i '/#\?Defaults\s\+secure_path\s*=/c\Defaults    secure_path="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"' /etc/sudoers
@@ -64,6 +81,9 @@ echo "AWS CLI version (\`whoami\`):"
 
 echo "kubectl version (\`whoami\`):"
 /usr/local/bin/kubectl version --client --short
+
+echo "Helm version (\`whoami\`):"
+helm version --short
 EOF
 
 echo "AWS CLI v2 and kubectl installation and setup completed."

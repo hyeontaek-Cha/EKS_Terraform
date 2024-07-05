@@ -17,7 +17,7 @@ Terraform EKS 클러스터 구축
 │   ├───bastion_host
 │   │       aws_configure.sh
 │   │       data.tf
-│   │       install_awscli2_kubectl.sh
+│   │       install_config.sh
 │   │       main.tf
 │   │       outputs.tf
 │   │       variables.tf

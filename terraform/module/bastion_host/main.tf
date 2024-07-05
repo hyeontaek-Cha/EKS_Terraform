@@ -35,8 +35,9 @@ resource "null_resource" "bastion_provisioner" {
   }
 
   provisioner "file" {
-    source      = "${path.module}/install_awscli2_kubectl.sh"
-    destination = "/home/ec2-user/install_awscli2_kubectl.sh"
+    source      = "${path.module}/install_config.sh"
+    destination = "/home/ec2-user/install_config.sh"
+    
     connection {
       type        = "ssh"
       user        = "ec2-user"
@@ -48,6 +49,7 @@ resource "null_resource" "bastion_provisioner" {
   provisioner "file" {
     source      = "${path.module}/aws_configure.sh"
     destination = "/home/ec2-user/aws_configure.sh"
+
     connection {
       type        = "ssh"
       user        = "ec2-user"
@@ -71,16 +73,16 @@ resource "null_resource" "bastion_provisioner" {
   }
 }
 
-resource "null_resource" "install_awscli2_kubectl" {
+resource "null_resource" "install_config" {
   depends_on = [null_resource.bastion_provisioner]
 
   provisioner "remote-exec" {
     inline = [
-      "chmod +x /home/ec2-user/install_awscli2_kubectl.sh",
+      "chmod +x /home/ec2-user/install_config.sh",
       "chmod +x /home/ec2-user/aws_configure.sh",
-      "sudo dos2unix /home/ec2-user/install_awscli2_kubectl.sh",
       "sudo dos2unix /home/ec2-user/aws_configure.sh",
-      "/home/ec2-user/install_awscli2_kubectl.sh",
+      "sudo dos2unix /home/ec2-user/install_config.sh",
+      "/home/ec2-user/install_config.sh",
       "/home/ec2-user/aws_configure.sh"
     ]
     connection {

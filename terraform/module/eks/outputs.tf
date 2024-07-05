@@ -37,3 +37,7 @@ output "min_capacity" {
   description = "The minimum capacity of the EKS node group."
   value       = var.min_capacity
 }
+
+output "cluster_security_group_id" {
+  value = data.aws_eks_cluster.eks.vpc_config[0].cluster_security_group_id
+}

@@ -94,8 +94,6 @@ resource "aws_eip" "nat_eip" {
 }
 
 resource "aws_eip" "bastion_eip" {
-  # depends_on = [aws_instance.bastion] # 추가
-
   tags = {
     Name = "cht-eks-bastion-eip"
   }

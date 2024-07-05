@@ -135,3 +135,8 @@ variable "access_entries" {
     }))
   }))
 }
+
+variable "eks_cluster_security_group_id" {
+  description = "The security group ID of the EKS cluster"
+  type        = string
+}

@@ -20,6 +20,10 @@ resource "aws_eks_cluster" "eks" {
   ]
 }
 
+data "aws_eks_cluster" "eks" {
+  name = aws_eks_cluster.eks.name
+}
+
 resource "null_resource" "update_kubeconfig" {
   provisioner "remote-exec" {
     inline = [

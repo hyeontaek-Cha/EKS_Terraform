@@ -23,6 +23,7 @@ module "security_group" {
   vpc_id            = module.vpc.vpc_id
   bastion_sg_id     = module.security_group.bastion_sg_id
   eks_worker_sg_id  = module.security_group.eks_worker_sg_id
+  eks_cluster_security_group_id = module.eks.cluster_security_group_id
 }
 
 # Bastion Host 모듈
@@ -64,6 +65,7 @@ module "eks" {
   subnet_ids                = module.vpc.private_subnets
   cluster_security_group_id = module.security_group.eks_cluster_sg_id
   node_security_group_id    = module.security_group.eks_worker_sg_id
+  eks_cluster_security_group_id = module.security_group.eks_cluster_sg_id
   bastion_eip_cidr          = module.bastion_host.bastion_eip_cidr
   bastion_eip_public_ip     = module.vpc.bastion_eip_public_ip
 

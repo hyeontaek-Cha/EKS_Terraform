@@ -14,15 +14,7 @@ resource "aws_security_group" "eks_worker_sg" {
   }
 }
 
-resource "aws_security_group_rule" "bastion_to_eks" {
-  type                     = "ingress"
-  from_port                = 22
-  to_port                  = 22
-  protocol                 = "tcp"
-  security_group_id        = aws_security_group.eks_worker_sg.id
-  source_security_group_id = var.bastion_sg_id
-}
-
+# 특정 CIDR 블록에서 EKS 워커 노드로의 인바운드 트래픽을 허용
 resource "aws_security_group_rule" "eks_worker_ingress" {
   type                     = "ingress"
   from_port                = 0

@@ -19,10 +19,10 @@ module "vpc" {
 
 # 보안 그룹 모듈
 module "security_group" {
-  source            = "./module/security_group"
-  vpc_id            = module.vpc.vpc_id
-  bastion_sg_id     = module.security_group.bastion_sg_id
-  eks_worker_sg_id  = module.security_group.eks_worker_sg_id
+  source                        = "./module/security_group"
+  vpc_id                        = module.vpc.vpc_id
+  bastion_sg_id                 = module.security_group.bastion_sg_id
+  eks_worker_sg_id              = module.security_group.eks_worker_sg_id
   eks_cluster_security_group_id = module.eks.cluster_security_group_id
 }
 
@@ -62,12 +62,12 @@ module "eks" {
   user_name                 = data.aws_iam_user.iam_user.user_name
 
   # 네트워킹 설정
-  subnet_ids                = module.vpc.private_subnets
-  cluster_security_group_id = module.security_group.eks_cluster_sg_id
-  node_security_group_id    = module.security_group.eks_worker_sg_id
+  subnet_ids                    = module.vpc.private_subnets
+  cluster_security_group_id     = module.security_group.eks_cluster_sg_id
+  node_security_group_id        = module.security_group.eks_worker_sg_id
   eks_cluster_security_group_id = module.security_group.eks_cluster_sg_id
-  bastion_eip_cidr          = module.bastion_host.bastion_eip_cidr
-  bastion_eip_public_ip     = module.vpc.bastion_eip_public_ip
+  bastion_eip_cidr              = module.bastion_host.bastion_eip_cidr
+  bastion_eip_public_ip         = module.vpc.bastion_eip_public_ip
 
   # IAM 설정
   cluster_iam_role_arn      = module.iam.eks_cluster_role_arn
@@ -77,8 +77,8 @@ module "eks" {
   account_id                = data.aws_caller_identity.current.account_id
 
   # 정책 첨부
-  eks_cluster_policy_attachment_id     = module.iam.eks_cluster_policy_attachment_id
   AmazonEKSVPCResourceController_id    = module.iam.AmazonEKSVPCResourceController_id
+  eks_cluster_policy_attachment_id     = module.iam.eks_cluster_policy_attachment_id
   eks_worker_node_policy_attachment_id = module.iam.eks_worker_node_policy_attachment_id
   eks_cni_policy_attachment_id         = module.iam.eks_cni_policy_attachment_id
   eks_registry_policy_attachment_id    = module.iam.eks_registry_policy_attachment_id
